@@ -1,0 +1,19 @@
+#!/bin/sh
+
+set -e
+
+autostart_by_default()
+{
+    deskfile=/etc/xdg/autostart/opensnitch_ui.desktop
+    if [ -d /etc/xdg/autostart -a ! -h  $deskfile -a ! -f $deskfile ]; then
+        ln -s /usr/share/applications/opensnitch_ui.desktop /etc/xdg/autostart/
+    fi
+}
+
+autostart_by_default
+
+if command -v gtk-update-icon-cache >/dev/null && test -f /usr/share/icons/hicolor/index.theme ; then
+    gtk-update-icon-cache --quiet /usr/share/icons/hicolor/
+fi
+
+#DEBHELPER#
